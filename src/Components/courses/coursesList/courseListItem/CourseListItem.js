@@ -1,14 +1,24 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { CourseListItemContainer } from "./CourseListItemStyled";
 
 const CourseListItem = ({ name, level, isActive }) => {
   return (
-    <li>
+    <CourseListItemContainer isActive={isActive}>
       <h2>Name: {name || "No name"}</h2>
       <p>Level: {level}</p>
-      <p>{isActive ? "Active course" : "No active course"}</p>
-    </li>
+      <p className='courseListItemStatus'>
+        {isActive ? "Active course" : "No active course"}
+      </p>
+      <div className='courseDetails'>
+        <button type='button'> Details</button>
+      </div>
+    </CourseListItemContainer>
   );
+};
+
+CourseListItem.defaultProps = {
+  level: "medium",
 };
 
 CourseListItem.propTypes = {

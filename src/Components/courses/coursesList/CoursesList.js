@@ -4,7 +4,7 @@ import CourseListItem from "./courseListItem/CourseListItem";
 
 const CoursesList = ({ courses }) => {
   return (
-    <ul>
+    <ul className='flexList'>
       {courses.map(({ name, level, id, isActive }) => (
         <CourseListItem
           key={id}
