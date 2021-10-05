@@ -1,13 +1,12 @@
 import React from "react";
-import { data } from "../../data/data";
 import CoursesForm from "./coursesForm/CoursesForm";
 import CoursesList from "./coursesList/CoursesList";
 
-const Courses = () => {
+const Courses = ({ courses, tutors, addCourse, deleteCourse }) => {
   return (
     <>
-      <CoursesForm />
-      <CoursesList courses={data.courses} />
+      <CoursesForm addCourse={addCourse} tutors={tutors}/>
+      <CoursesList courses={courses} deleteCourse={deleteCourse} />
     </>
   );
 };
