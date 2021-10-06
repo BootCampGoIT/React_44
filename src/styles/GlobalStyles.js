@@ -30,8 +30,7 @@ button:hover {
 label {
     color: ${(props) => props.theme.colors.label};
     outline: none;
-    /* font-size: 16px; */
-    /* line-height: 25px; */
+    width: 100%;
 }
 ul {
     list-style: none;
@@ -45,7 +44,6 @@ input, select {
     outline: none;
     padding: 0 12px;
     width: 100%;
-    /* font-size: 18px; */
     margin: 8px 0;
    
 }
@@ -62,6 +60,7 @@ input:-moz-placeholder{
 input:-ms-input-placeholder{
     color: "#dbd7d8";
 }
+
 
 input::-webkit-input-placeholder{opacity: 0.5; transition: opacity 0.3s linear;}
 input::-moz-placeholder{opacity: 0.5; transition: opacity 0.3s linear;}

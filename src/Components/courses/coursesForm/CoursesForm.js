@@ -10,13 +10,13 @@ const initialState = {
   courseName: "",
   duration: "",
   isActive: false,
-  mentor: mentors[0],
 };
 
 class CoursesForm extends Component {
   state = {
     ...initialState,
-    tutor: this.props.tutors[0],
+    tutor: this.props.tutors[0] || "No tutor",
+    mentor: mentors[0] || "No mentor",
   };
 
   onHandleChange = (e) => {
@@ -35,7 +35,11 @@ class CoursesForm extends Component {
   onHandleSubmit = (e) => {
     e.preventDefault();
     this.props.addCourse(this.state);
-    this.setState({ ...initialState, tutor: this.props.tutors[0] });
+    this.setState({
+      ...initialState,
+      tutor: this.props.tutors[0] || "No tutor",
+      mentor: mentors[0] || "No mentor",
+    });
   };
   render() {
     return (
@@ -112,7 +116,7 @@ class CoursesForm extends Component {
             Mentor
             <select
               onChange={this.onHandleChange}
-              name='tutor'
+              name='mentor'
               value={this.state.mentor}>
               {mentors.map((mentor) => (
                 <option key={mentor} value={mentor}>
