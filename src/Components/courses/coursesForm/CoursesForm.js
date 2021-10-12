@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { CourseFormContainer } from "./CoursesFormStyled";
 import sprite from "../../../icons/courses/sprite.svg";
 import { toDataURL } from "../../../helpers/imgToBase64";
+import axios from "axios";
 
 const mentors = ["Alex Ivanov", "Igor Petrov"];
 
@@ -34,12 +35,21 @@ class CoursesForm extends Component {
 
   onHandleSubmit = (e) => {
     e.preventDefault();
+   axios
+      .post(
+        `https://ited-fc7ac-default-rtdb.firebaseio.com/courses.json`,
+        this.state
+      )
+      .then(() => this.setState({ x: 5 }));
+
     this.props.addCourse(this.state);
-    this.setState({
-      ...initialState,
-      tutor: this.props.tutors[0] || "No tutor",
-      mentor: mentors[0] || "No mentor",
-    });
+
+    // this.setState({
+    //   ...initialState,
+    //   tutor: this.props.tutors[0] || "No tutor",
+    //   mentor: mentors[0] || "No mentor",
+    // });
+    this.props.toggleForm();
   };
   render() {
     return (
@@ -79,53 +89,56 @@ class CoursesForm extends Component {
             name='duration'
           />
         </label>
-        <div>
-          Is active
-          <label>
+        <label>Is active</label>
+        <div className='courseFormActivity'>
+          <label className='courseFormActivityLabel'>
             True
             <input
               type='radio'
               onChange={this.onHandleChange}
               name='isActive'
               checked={this.state.isActive}
+              className='courseFormActivityRadio'
             />
           </label>
-          <label>
+          <label className='courseFormActivityLabel'>
             False
             <input
               type='radio'
               onChange={this.onHandleChange}
               name='isActive'
               checked={!this.state.isActive}
+              className='courseFormActivityRadio'
             />
           </label>
-          <label>
-            Tutor
-            <select
-              onChange={this.onHandleChange}
-              name='tutor'
-              value={this.state.tutor}>
-              {this.props.tutors.map((tutor) => (
-                <option key={tutor.id} value={tutor.name}>
-                  {tutor.name}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label>
-            Mentor
-            <select
-              onChange={this.onHandleChange}
-              name='mentor'
-              value={this.state.mentor}>
-              {mentors.map((mentor) => (
-                <option key={mentor} value={mentor}>
-                  {mentor}
-                </option>
-              ))}
-            </select>
-          </label>
         </div>
+        <label>
+          Tutor
+          <select
+            onChange={this.onHandleChange}
+            name='tutor'
+            value={this.state.tutor}>
+            {this.props.tutors.map((tutor) => (
+              <option key={tutor.id} value={tutor.name}>
+                {tutor.name}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Mentor
+          <select
+            onChange={this.onHandleChange}
+            name='mentor'
+            value={this.state.mentor}>
+            {mentors.map((mentor) => (
+              <option key={mentor} value={mentor}>
+                {mentor}
+              </option>
+            ))}
+          </select>
+        </label>
+
         <button type='submit'>Add course</button>
       </CourseFormContainer>
     );

@@ -4,11 +4,21 @@ import Navigation from "./navigation/Navigation";
 import sprite from "../../icons/header/sprite.svg";
 import Modal from "../modal/Modal";
 
-
 class Header extends Component {
   state = {
     isModalOpen: false,
+    breakpoint: 768,
+    width: window.innerWidth,
   };
+  componentDidMount() {
+    window.addEventListener("resize", this.windowResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.windowResize);
+  }
+
+  windowResize = () => this.setState({ width: window.innerWidth });
 
   toggle = () => {
     this.setState((prev) => ({
@@ -21,25 +31,35 @@ class Header extends Component {
     return (
       <HeaderContainer>
         <h1 className='headerTitle'>ITED</h1>
-        {this.state.isModalOpen && (
-          <Modal toggle={this.toggle}>
-            <div className='settingsWrapper'>
-              <h2>Settings</h2>
-              <button type='button' onClick={changeTheme}>Change theme</button>
+        {this.state.width >= this.state.breakpoint ? (
+          <>
+            {this.state.isModalOpen && (
+              <Modal toggle={this.toggle}>
+                <div className='settingsWrapper'>
+                  <h2>Settings</h2>
+                  <button type='button' onClick={changeTheme}>
+                    Change theme
+                  </button>
+                </div>
+              </Modal>
+            )}
+            <div className='headerBlock'>
+              <Navigation routes={routes} />
+              <button
+                type='button'
+                className='headerBlockButton'
+                onClick={this.toggle}>
+                <svg className='headerBlockIcon'>
+                  <use href={sprite + "#icon-dots-three-vertical"} />
+                </svg>
+              </button>
             </div>
-          </Modal>
+          </>
+        ) : (
+          <svg>
+            <use href={sprite + "#icon-menu"} />
+          </svg>
         )}
-        <div className='headerBlock'>
-          <Navigation routes={routes} />
-          <button
-            type='button'
-            className='headerBlockButton'
-            onClick={this.toggle}>
-            <svg className='headerBlockIcon'>
-              <use href={sprite + "#icon-dots-three-vertical"} />
-            </svg>
-          </button>
-        </div>
       </HeaderContainer>
     );
   }

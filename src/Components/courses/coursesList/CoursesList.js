@@ -1,10 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import CourseListItem from "./courseListItem/CourseListItem";
+import { CourseListItemContainer } from "./courseListItem/CourseListItemStyled";
 
-const CoursesList = ({ courses, deleteCourse }) => {
+const CoursesList = ({ courses, deleteCourse, toggleForm }) => {
   return (
     <ul className='flexList'>
+      <li onClick={toggleForm}>+</li>
       {courses.map(
         ({ avatar, courseName, id, isActive, duration, mentor, tutor }) => (
           <CourseListItem

@@ -36,4 +36,19 @@ export const CourseFormContainer = styled.form`
   .courseFormAvatarInput {
     display: none;
   }
+  .courseFormActivity {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .courseFormActivityLabel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .courseFormActivityRadio {
+    width: 20px;
+    height: 20px;
+    margin-left: 20px;
+  }
 `;
