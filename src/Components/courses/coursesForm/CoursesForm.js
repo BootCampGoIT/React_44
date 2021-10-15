@@ -35,20 +35,7 @@ class CoursesForm extends Component {
 
   onHandleSubmit = (e) => {
     e.preventDefault();
-   axios
-      .post(
-        `https://ited-fc7ac-default-rtdb.firebaseio.com/courses.json`,
-        this.state
-      )
-      .then(() => this.setState({ x: 5 }));
-
     this.props.addCourse(this.state);
-
-    // this.setState({
-    //   ...initialState,
-    //   tutor: this.props.tutors[0] || "No tutor",
-    //   mentor: mentors[0] || "No mentor",
-    // });
     this.props.toggleForm();
   };
   render() {
@@ -131,9 +118,9 @@ class CoursesForm extends Component {
             onChange={this.onHandleChange}
             name='mentor'
             value={this.state.mentor}>
-            {mentors.map((mentor) => (
-              <option key={mentor} value={mentor}>
-                {mentor}
+            {this.props.tutors.map((mentor) => (
+              <option key={mentor.id} value={mentor.name}>
+                {mentor.name}
               </option>
             ))}
           </select>

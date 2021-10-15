@@ -35,12 +35,4 @@ class Courses extends Component {
 
 export default Courses;
 
-// const Courses = ({ courses, tutors, addCourse, deleteCourse }) => {
-//   return (
-//     <>
 
-//     </>
-//   );
-// };
-
-// export default Courses;

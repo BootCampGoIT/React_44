@@ -17,8 +17,8 @@ const CourseListItem = ({
     <CourseListItemContainer isActive={isActive}>
       <h2>{courseName || "No name"}</h2>
       <img src={avatar} alt={courseName} />
-      <p>Mentor: {mentor}</p>
-      <p>Tutor: {tutor}</p>
+      <p>Mentor: {mentor.name}</p>
+      <p>Tutor: {tutor.name}</p>
       <p>Duration: {duration}</p>
       <p className='courseListItemStatus'>
         {isActive ? "Active course" : "No active course"}
