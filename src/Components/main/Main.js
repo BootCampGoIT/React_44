@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import Courses from "../courses/Courses";
-import Tutors from "../tutors/Tutors";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import Students from "../students/Students";
+import { addNewStudent } from "../../services/students/api_students";
 
 class Main extends Component {
   state = {
     tutors: [],
     courses: [],
+    students: [],
   };
 
   addTutor = (tutor) => {
@@ -34,10 +34,28 @@ class Main extends Component {
       courses: prev.courses.filter((course) => course.id !== id),
     }));
 
+  addStudent = (student) => {
+    addNewStudent(student).then((response) =>
+      this.setState((prev) => ({
+        students: [...prev.students, { ...student, id: response.data.name }],
+      }))
+    );
+  };
+
+  removeStudent = (id) => {
+    this.setState((prev) => ({
+      students: prev.students.filter((student) => student.id !== id),
+    }));
+  };
+
   render() {
     return (
       <main>
-        <Students />
+        <Students
+          students={this.state.students}
+          addStudent={this.addStudent}
+          removeStudent={this.removeStudent}
+        />
         {/* <Courses
           courses={this.state.courses}
           tutors={this.state.tutors}

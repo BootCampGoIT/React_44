@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 class StudentsForm extends Component {
   state = {
@@ -6,11 +7,6 @@ class StudentsForm extends Component {
     course: "",
     age: "",
   };
-
-  componentDidUpdate(prevProps) {
-    // console.log(prevProps === this.props);
-    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-  }
 
   onHandleChange = ({ target }) => {
     const { name, value } = target;
