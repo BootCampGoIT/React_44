@@ -6,13 +6,6 @@ class StudentsForm extends Component {
     course: "",
     age: "",
   };
-//   shouldComponentUpdate(nextProps, nextState) {
-//       return false
-//     // if (this.props === nextProps) {
-//     //   return false;
-//     // }
-//     // return true;
-//   }
 
   componentDidUpdate(prevProps) {
     // console.log(prevProps === this.props);
