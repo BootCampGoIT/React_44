@@ -1,27 +1,43 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import { OverLay } from "./ModalStyled";
 
-class Modal extends Component {
-  state = {};
+const Modal = ({ children, toggle }) => {
+  const onHandleEscapeClick = (e) => e.code === "Escape" && toggle();
 
-  componentDidMount() {
-    window.addEventListener("keydown", this.onHandleEscapeClick);
-  }
+  useEffect(() => {
+    window.addEventListener("keydown", onHandleEscapeClick);
+    return () => window.removeEventListener("keydown", onHandleEscapeClick);
+  });
 
-  componentWillUnmount() {
-    window.removeEventListener("keydown", this.onHandleEscapeClick);
-  }
-
-  onHandleEscapeClick = (e) => e.code === "Escape" && this.props.toggle();
-
-  onOverlayClick = (e) => {
-    if (e.target === e.currentTarget) this.props.toggle();
+  const onOverlayClick = (e) => {
+    if (e.target === e.currentTarget) toggle();
   };
-  render() {
-    return (
-      <OverLay onClick={this.onOverlayClick}>{this.props.children}</OverLay>
-    );
-  }
-}
+  return <OverLay onClick={onOverlayClick}>{children}</OverLay>;
+};
 
 export default Modal;
+
+// class Modal extends Component {
+//   state = {};
+
+//   componentDidMount() {
+//     window.addEventListener("keydown", this.onHandleEscapeClick);
+//   }
+
+//   componentWillUnmount() {
+//     window.removeEventListener("keydown", this.onHandleEscapeClick);
+//   }
+
+//   onHandleEscapeClick = (e) => e.code === "Escape" && this.props.toggle();
+
+//   onOverlayClick = (e) => {
+//     if (e.target === e.currentTarget) this.props.toggle();
+//   };
+//   render() {
+//     return (
+//       <OverLay onClick={this.onOverlayClick}>{this.props.children}</OverLay>
+//     );
+//   }
+// }
+
+// export default Modal;

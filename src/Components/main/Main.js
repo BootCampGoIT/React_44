@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import Students from "../students/Students";
 import Tutors from "../tutors/Tutors";
 import Courses from "../courses/Courses";
@@ -9,128 +9,229 @@ import {
 } from "../../services/courses/api_courses";
 import LoaderComponent from "../loader/LoaderComponent";
 
-class Main extends Component {
-  state = {
-    tutors: [],
-    courses: [],
-    students: [],
-    isLoading: false,
-    error: "",
-  };
+const Main = () => {
+  const [tutors, setTutors] = useState([]);
+  const [courses, setCourses] = useState([]);
+  const [students, setStudents] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  async componentDidMount() {
-    this.setState({ isLoading: true });
+  useEffect(() => {
+    setIsLoading(true);
     try {
-      const students = await getItems("students");
-      const tutors = await getItems("tutors");
-      const courses = await getItems("courses");
-      this.setState({ students, tutors, courses });
+      getItems("students").then((students) => setStudents(students));
+      getItems("tutors").then((tutors) => setTutors(tutors));
+      getItems("courses").then((courses) => setCourses(courses));
     } catch (error) {
-      this.setState({ error });
-      console.log(error);
+      setError(error);
     } finally {
-      this.setState({ isLoading: false });
+      setIsLoading(false);
     }
-  }
+  }, []);
 
-  addTutor = async (tutor) => {
-    this.setState({ isLoading: true });
+  const addTutor = async (tutor) => {
+    setIsLoading(true);
     try {
       const id = await addNewItem(tutor, "tutors");
-      this.setState((prev) => ({
-        tutors: [...prev.tutors, { ...tutor, id }],
-      }));
+      setTutors((prev) => [...prev, { ...tutor, id }]);
     } catch (error) {
-      this.setState({ error });
-      console.log(error);
+      setError(error);
     } finally {
-      this.setState({ isLoading: false });
+      setIsLoading(false);
     }
   };
 
-  addCourse = async (course) => {
-    this.setState({ isLoading: true });
+  const addCourse = async (course) => {
+    setIsLoading(true);
     try {
       const id = await addNewItem(course, "courses");
-      this.setState((prev) => ({
-        courses: [...prev.courses, { ...course, id }],
-      }));
+      setCourses((prev) => [...prev, { ...course, id }]);
     } catch (error) {
-      this.setState({ error });
-      console.log(error);
+      setError(error);
     } finally {
-      this.setState({ isLoading: false });
+      setIsLoading(false);
     }
   };
 
-  deleteCourse = async (id) => {
-    this.setState({ isLoading: true });
+  const deleteCourse = async (id) => {
+    setIsLoading(true);
     try {
       await removeItemByID(id, "courses");
-      this.setState((prev) => ({
-        courses: prev.courses.filter((course) => course.id !== id),
-      }));
+      setCourses((prev) => prev.filter((course) => course.id !== id));
     } catch (error) {
-      this.setState({ error });
-      console.log(error);
+      setError(error);
     } finally {
-      this.setState({ isLoading: false });
+      setIsLoading(false);
     }
   };
 
-  addStudent = async (student) => {
-    this.setState({ isLoading: true });
+  const addStudent = async (student) => {
+    setIsLoading(true);
     try {
       const id = await addNewItem(student, "students");
-      this.setState((prev) => ({
-        students: [...prev.students, { ...student, id }],
-      }));
+      setStudents((prev) => [...prev, { ...student, id }]);
     } catch (error) {
-      this.setState({ error });
-      console.log(error);
+      setError(error);
     } finally {
-      this.setState({ isLoading: false });
+      setIsLoading(false);
     }
   };
 
-  removeStudent = async (id) => {
-    this.setState({ isLoading: true });
+  const removeStudent = async (id) => {
+    setIsLoading(true);
     try {
       await removeItemByID(id, "students");
-      this.setState((prev) => ({
-        students: prev.students.filter((student) => student.id !== id),
-      }));
+      setStudents((prev) => prev.filter((student) => student.id !== id));
     } catch (error) {
-      this.setState({ error });
-      console.log(error);
+      setError(error);
     } finally {
-      this.setState({ isLoading: false });
+      setIsLoading(false);
     }
   };
-
-  render() {
-    return (
-      <main>
-        {this.state.isLoading && <LoaderComponent />}
-        {this.state.error && <h2>{this.state.error}</h2>}
-        <Tutors addTutor={this.addTutor} />
-        <Students
-          students={this.state.students}
-          addStudent={this.addStudent}
-          removeStudent={this.removeStudent}
-        />
-        <Courses
-          courses={this.state.courses}
-          tutors={this.state.tutors}
-          addCourse={this.addCourse}
-          deleteCourse={this.deleteCourse}
-        />
-      </main>
-    );
-  }
-}
+  return (
+    <main>
+      {isLoading && <LoaderComponent />}
+      {error && <h2>{error}</h2>}
+      <Tutors addTutor={addTutor} />
+      <Students
+        students={students}
+        addStudent={addStudent}
+        removeStudent={removeStudent}
+      />
+      <Courses
+        courses={courses}
+        tutors={tutors}
+        addCourse={addCourse}
+        deleteCourse={deleteCourse}
+      />
+    </main>
+  );
+};
 
 export default Main;
+
+// class Main extends Component {
+//   state = {
+//     tutors: [],
+//     courses: [],
+//     students: [],
+//     isLoading: false,
+//     error: "",
+//   };
+
+//   async componentDidMount() {
+//     this.setState({ isLoading: true });
+//     try {
+//       const students = await getItems("students");
+//       const tutors = await getItems("tutors");
+//       const courses = await getItems("courses");
+//       this.setState({ students, tutors, courses });
+//     } catch (error) {
+//       this.setState({ error });
+//       console.log(error);
+//     } finally {
+//       this.setState({ isLoading: false });
+//     }
+//   }
+
+//   addTutor = async (tutor) => {
+//     this.setState({ isLoading: true });
+//     try {
+//       const id = await addNewItem(tutor, "tutors");
+//       this.setState((prev) => ({
+//         tutors: [...prev.tutors, { ...tutor, id }],
+//       }));
+//     } catch (error) {
+//       this.setState({ error });
+//       console.log(error);
+//     } finally {
+//       this.setState({ isLoading: false });
+//     }
+//   };
+
+//   addCourse = async (course) => {
+//     this.setState({ isLoading: true });
+//     try {
+//       const id = await addNewItem(course, "courses");
+//       this.setState((prev) => ({
+//         courses: [...prev.courses, { ...course, id }],
+//       }));
+//     } catch (error) {
+//       this.setState({ error });
+//       console.log(error);
+//     } finally {
+//       this.setState({ isLoading: false });
+//     }
+//   };
+
+//   deleteCourse = async (id) => {
+//     this.setState({ isLoading: true });
+//     try {
+//       await removeItemByID(id, "courses");
+//       this.setState((prev) => ({
+//         courses: prev.courses.filter((course) => course.id !== id),
+//       }));
+//     } catch (error) {
+//       this.setState({ error });
+//       console.log(error);
+//     } finally {
+//       this.setState({ isLoading: false });
+//     }
+//   };
+
+//   addStudent = async (student) => {
+//     this.setState({ isLoading: true });
+//     try {
+//       const id = await addNewItem(student, "students");
+//       this.setState((prev) => ({
+//         students: [...prev.students, { ...student, id }],
+//       }));
+//     } catch (error) {
+//       this.setState({ error });
+//       console.log(error);
+//     } finally {
+//       this.setState({ isLoading: false });
+//     }
+//   };
+
+//   removeStudent = async (id) => {
+//     this.setState({ isLoading: true });
+//     try {
+//       await removeItemByID(id, "students");
+//       this.setState((prev) => ({
+//         students: prev.students.filter((student) => student.id !== id),
+//       }));
+//     } catch (error) {
+//       this.setState({ error });
+//       console.log(error);
+//     } finally {
+//       this.setState({ isLoading: false });
+//     }
+//   };
+
+//   render() {
+//     return (
+//       <main>
+//         {this.state.isLoading && <LoaderComponent />}
+//         {this.state.error && <h2>{this.state.error}</h2>}
+//         <Tutors addTutor={this.addTutor} />
+//         <Students
+//           students={this.state.students}
+//           addStudent={this.addStudent}
+//           removeStudent={this.removeStudent}
+//         />
+//         <Courses
+//           courses={this.state.courses}
+//           tutors={this.state.tutors}
+//           addCourse={this.addCourse}
+//           deleteCourse={this.deleteCourse}
+//         />
+//       </main>
+//     );
+//   }
+// }
+
+// export default Main;
 
 // const getData = async () => {
 //   const res = () => {

@@ -1,56 +1,81 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 
-class StudentsForm extends Component {
-  state = {
+const initialState = {
+  name: "",
+  course: "",
+  age: "",
+};
+
+const StudentsForm = ({ addStudent }) => {
+  // const [name, setName] = useState("");
+  // const [course, setCourse] = useState("");
+  // const [age, setAge] = useState("");
+  const [student, setStudent] = useState({
     name: "",
     course: "",
     age: "",
-  };
+  });
 
-  onHandleChange = ({ target }) => {
-    const { name, value } = target;
-    this.setState({ [name]: value });
+  const onHandleChange = ({ target }) => {
+    const { name, value } = target; //
+    setStudent((prev) => ({ ...prev, [name]: value }));
+    // name === "name" && setName(value);
+    // name === "course" && setCourse(value);
+    // name === "age" && setAge(value);
   };
-
-  onHandleSubmit = (e) => {
+  const onHandleSubmit = (e) => {
     e.preventDefault();
-    this.props.addStudent(this.state);
+    addStudent(student);
   };
-  
-  render() {
-    return (
-      <form onSubmit={this.onHandleSubmit}>
-        <label>
-          Name
-          <input
-            type='text'
-            value={this.state.name}
-            name='name'
-            onChange={this.onHandleChange}
-          />
-        </label>
-        <label>
-          Course
-          <input
-            type='text'
-            value={this.state.course}
-            name='course'
-            onChange={this.onHandleChange}
-          />
-        </label>
-        <label>
-          Age
-          <input
-            type='text'
-            value={this.state.age}
-            name='age'
-            onChange={this.onHandleChange}
-          />
-        </label>
-        <button type='submit'>Add Student</button>
-      </form>
-    );
-  }
-}
+  return (
+    <form onSubmit={onHandleSubmit}>
+      <label>
+        Name
+        <input
+          type='text'
+          value={student.name}
+          name='name'
+          onChange={onHandleChange}
+        />
+      </label>
+      <label>
+        Course
+        <input
+          type='text'
+          value={student.course}
+          name='course'
+          onChange={onHandleChange}
+        />
+      </label>
+      <label>
+        Age
+        <input
+          type='text'
+          value={student.age}
+          name='age'
+          onChange={onHandleChange}
+        />
+      </label>
+      <button type='submit'>Add Student</button>
+    </form>
+  );
+};
 
 export default StudentsForm;
+
+// const arr = [10, 20, 30];
+
+// const [, , x] = arr;
+
+// const getRes = (value) => {
+//   const x = { value: value };
+//   const changeX = (newValue) => {
+//     return (x.value = newValue);
+//   };
+//   return [x, changeX];
+// };
+
+// const [name, setName] = getRes(10); //[10, changeX]
+// console.log(name); //10
+// setName(20);
+// console.log(name);
