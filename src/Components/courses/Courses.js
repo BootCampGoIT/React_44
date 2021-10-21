@@ -1,13 +1,12 @@
 import React, { Component, useState } from "react";
+import { MessageContext } from "../App";
 import Modal from "../modal/Modal";
 import CoursesForm from "./coursesForm/CoursesForm";
 import CoursesList from "./coursesList/CoursesList";
 
-
-const Courses = ({tutors, courses, addCourse, deleteCourse}) => {
+const Courses = ({ tutors, courses, addCourse, deleteCourse }) => {
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const toggleForm = () =>
-  setIsFormOpen((prev) => (!prev));
+  const toggleForm = () => setIsFormOpen((prev) => !prev);
   return (
     <>
       {isFormOpen && (
@@ -20,6 +19,10 @@ const Courses = ({tutors, courses, addCourse, deleteCourse}) => {
         </Modal>
       )}
 
+      <MessageContext.Consumer>
+        {({ isOpen }) => isOpen && <h2>Hello</h2>}
+      </MessageContext.Consumer>
+
       <CoursesList
         courses={courses}
         deleteCourse={deleteCourse}
@@ -27,7 +30,7 @@ const Courses = ({tutors, courses, addCourse, deleteCourse}) => {
       />
     </>
   );
-}
+};
 
 export default Courses;
 // class Courses extends Component {

@@ -92,11 +92,12 @@ const Main = () => {
     <main>
       {isLoading && <LoaderComponent />}
       {error && <h2>{error}</h2>}
-      <Tutors addTutor={addTutor} />
+      <Tutors addTutor={addTutor} buttonText='tutors' />
       <Students
         students={students}
         addStudent={addStudent}
         removeStudent={removeStudent}
+        buttonText='students'
       />
       <Courses
         courses={courses}
