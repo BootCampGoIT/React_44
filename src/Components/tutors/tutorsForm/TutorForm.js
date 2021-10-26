@@ -24,6 +24,7 @@ class TutorForm extends Component {
   onHandleSubmit = (e) => {
     e.preventDefault();
     this.props.addTutor(this.state);
+    this.props.toggle();
   };
 
   render() {
@@ -32,7 +33,11 @@ class TutorForm extends Component {
         <label className='tutorFormAvatarLabel'>
           <div className='tutorFormAvatarContainer'>
             {this.state.avatar ? (
-              <img src={this.state.avatar} alt={this.state.name} className="tutorFormAvatarImage"/>
+              <img
+                src={this.state.avatar}
+                alt={this.state.name}
+                className='tutorFormAvatarImage'
+              />
             ) : (
               <svg className='tutorFormAvatarIcon'>
                 <use href={sprite + "#icon-camera"} />
@@ -68,7 +73,9 @@ class TutorForm extends Component {
             ))}
           </select>
         </label>
-        <button type='submit' className="tutorFormSubmitButton">Add tutor</button>
+        <button type='submit' className='tutorFormSubmitButton'>
+          Add tutor
+        </button>
       </TutorFormContainer>
     );
   }

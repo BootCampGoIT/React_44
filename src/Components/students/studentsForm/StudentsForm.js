@@ -7,9 +7,6 @@ const initialState = {
 };
 
 const StudentsForm = ({ addStudent }) => {
-  // const [name, setName] = useState("");
-  // const [course, setCourse] = useState("");
-  // const [age, setAge] = useState("");
   const [student, setStudent] = useState({
     name: "",
     course: "",
@@ -19,9 +16,6 @@ const StudentsForm = ({ addStudent }) => {
   const onHandleChange = ({ target }) => {
     const { name, value } = target; //
     setStudent((prev) => ({ ...prev, [name]: value }));
-    // name === "name" && setName(value);
-    // name === "course" && setCourse(value);
-    // name === "age" && setAge(value);
   };
   const onHandleSubmit = (e) => {
     e.preventDefault();

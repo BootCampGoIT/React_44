@@ -8,7 +8,11 @@ const Students = ({ students, addStudent, removeStudent }) => {
   const toggle = () => setIsOpen((prev) => !prev);
   return (
     <>
-      <StudentsList students={students} removeStudent={removeStudent} />
+      <StudentsList
+        students={students}
+        removeStudent={removeStudent}
+        toggle={toggle}
+      />
       {isOpen && (
         <Modal toggle={toggle}>
           <StudentsForm addStudent={addStudent} />

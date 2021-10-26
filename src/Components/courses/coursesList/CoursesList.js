@@ -1,12 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import CourseListItem from "./courseListItem/CourseListItem";
-import { CourseListItemContainer } from "./courseListItem/CourseListItemStyled";
+import AddItem from "../../addItem/AddItem";
+import { CoursesListContainer } from "./CoursesListStyled";
 
-const CoursesList = ({ courses, deleteCourse, toggleForm }) => {
+const CoursesList = ({ courses, deleteCourse, toggle }) => {
   return (
-    <ul className='flexList'>
-      <li onClick={toggleForm}>+</li>
+    <CoursesListContainer>
+      <AddItem toggle={toggle} />
+
       {courses.map(
         ({ avatar, courseName, id, isActive, duration, mentor, tutor }) => (
           <CourseListItem
@@ -22,7 +24,7 @@ const CoursesList = ({ courses, deleteCourse, toggleForm }) => {
           />
         )
       )}
-    </ul>
+    </CoursesListContainer>
   );
 };
 

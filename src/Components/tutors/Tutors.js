@@ -12,7 +12,7 @@ const Tutors = ({ tutors, addTutor }) => {
       <TutorsList tutors={tutors} toggle={toggle} />
       {isOpen && (
         <Modal toggle={toggle}>
-          <TutorForm addTutor={addTutor} />
+          <TutorForm addTutor={addTutor} toggle={toggle}/>
         </Modal>
       )}
     </>
