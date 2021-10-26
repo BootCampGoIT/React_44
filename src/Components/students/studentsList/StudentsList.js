@@ -1,9 +1,12 @@
 import React from "react";
 import StudentsListItem from "./studentsListItem/StudentsListItem";
+import { StudentsListContainer } from "./StudentsListStyled.js";
+import AddItem from "../../addItem/AddItem.js";
 
-const StudentsList = ({ students, removeStudent }) => {
+const StudentsList = ({ students, removeStudent, toggle }) => {
   return (
-    <ul>
+    <StudentsListContainer>
+      <AddItem toggle={toggle} />
       {students.map(({ name, course, age, id }) => (
         <StudentsListItem
           key={id}
@@ -14,7 +17,7 @@ const StudentsList = ({ students, removeStudent }) => {
           removeStudent={removeStudent}
         />
       ))}
-    </ul>
+    </StudentsListContainer>
   );
 };
 

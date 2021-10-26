@@ -1,14 +1,20 @@
-import React, { useContext } from "react";
-import { MessageContext } from "../App";
-import TutorForm from "./TutorForm";
+import React, { useState } from "react";
 
-const Tutors = ({ addTutor }) => {
-  const { toggle } = useContext(MessageContext);
+import TutorForm from "./tutorsForm/TutorForm";
+import TutorsList from "./tutorsList/TutorsList";
+import Modal from "../modal/Modal.js";
+
+const Tutors = ({ tutors, addTutor }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen((prev) => !prev);
   return (
     <>
-      <button onClick={toggle}>Open</button>
-      <hr />
-      <TutorForm addTutor={addTutor} />
+      <TutorsList tutors={tutors} toggle={toggle} />
+      {isOpen && (
+        <Modal toggle={toggle}>
+          <TutorForm addTutor={addTutor} />
+        </Modal>
+      )}
     </>
   );
 };

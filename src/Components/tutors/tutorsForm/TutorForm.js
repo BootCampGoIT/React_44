@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { toDataURL } from "../../helpers/imgToBase64";
-import sprite from "../../icons/courses/sprite.svg";
+import { toDataURL } from "../../../helpers/imgToBase64";
+import sprite from "../../../icons/courses/sprite.svg";
+import { TutorFormContainer } from "./TutorFormStyled";
 
 const levels = ["junior", "middle", "senior"];
 
@@ -27,15 +28,17 @@ class TutorForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.onHandleSubmit}>
+      <TutorFormContainer onSubmit={this.onHandleSubmit}>
         <label className='tutorFormAvatarLabel'>
-          {this.state.avatar ? (
-            <img src={this.state.avatar} alt={this.state.name} />
-          ) : (
-            <svg className='tutorFormAvatarIcon'>
-              <use href={sprite + "#icon-camera"} />
-            </svg>
-          )}
+          <div className='tutorFormAvatarContainer'>
+            {this.state.avatar ? (
+              <img src={this.state.avatar} alt={this.state.name} className="tutorFormAvatarImage"/>
+            ) : (
+              <svg className='tutorFormAvatarIcon'>
+                <use href={sprite + "#icon-camera"} />
+              </svg>
+            )}
+          </div>
           <input
             type='file'
             onChange={this.onHandleChange}
@@ -65,8 +68,8 @@ class TutorForm extends Component {
             ))}
           </select>
         </label>
-        <button type='submit'>Add tutor</button>
-      </form>
+        <button type='submit' className="tutorFormSubmitButton">Add tutor</button>
+      </TutorFormContainer>
     );
   }
 }

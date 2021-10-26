@@ -30,7 +30,7 @@ class Header extends Component {
     const { routes, changeTheme } = this.props;
     return (
       <HeaderContainer>
-        <h1 className='headerTitle'>ITED</h1>
+        <h2 className='headerTitle'>IT-education</h2>
         {this.state.width >= this.state.breakpoint ? (
           <>
             {this.state.isModalOpen && (
@@ -56,7 +56,7 @@ class Header extends Component {
             </div>
           </>
         ) : (
-          <svg>
+          <svg className="headerMenuIcon">
             <use href={sprite + "#icon-menu"} />
           </svg>
         )}

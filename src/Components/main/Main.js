@@ -8,6 +8,8 @@ import {
   removeItemByID,
 } from "../../services/courses/api_courses";
 import LoaderComponent from "../loader/LoaderComponent";
+import Section from "../section/Section";
+import { MainContainer } from "./MainStyled";
 
 const Main = () => {
   const [tutors, setTutors] = useState([]);
@@ -29,6 +31,7 @@ const Main = () => {
     }
   }, []);
 
+  // ========= Tutors ==================
   const addTutor = async (tutor) => {
     setIsLoading(true);
     try {
@@ -41,6 +44,7 @@ const Main = () => {
     }
   };
 
+  // ========= Courses ==================
   const addCourse = async (course) => {
     setIsLoading(true);
     try {
@@ -64,6 +68,8 @@ const Main = () => {
       setIsLoading(false);
     }
   };
+
+  // ========= Students ==================
 
   const addStudent = async (student) => {
     setIsLoading(true);
@@ -89,23 +95,28 @@ const Main = () => {
     }
   };
   return (
-    <main>
+    <MainContainer>
       {isLoading && <LoaderComponent />}
       {error && <h2>{error}</h2>}
-      <Tutors addTutor={addTutor} buttonText='tutors' />
-      <Students
-        students={students}
-        addStudent={addStudent}
-        removeStudent={removeStudent}
-        buttonText='students'
-      />
-      <Courses
-        courses={courses}
-        tutors={tutors}
-        addCourse={addCourse}
-        deleteCourse={deleteCourse}
-      />
-    </main>
+      <Section title='Tutors'>
+        <Tutors tutors={tutors} addTutor={addTutor} />
+      </Section>
+      <Section title='Students'>
+        <Students
+          students={students}
+          addStudent={addStudent}
+          removeStudent={removeStudent}
+        />
+      </Section>
+      <Section title='Courses'>
+        <Courses
+          courses={courses}
+          tutors={tutors}
+          addCourse={addCourse}
+          deleteCourse={deleteCourse}
+        />
+      </Section>
+    </MainContainer>
   );
 };
 

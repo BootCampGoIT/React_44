@@ -5,8 +5,9 @@ export const HeaderContainer = styled.header`
   background-color: ${(props) => props.theme.colors.background};
   display: flex;
   align-items: center;
-  padding: 0 40px;
   justify-content: space-between;
+  border-bottom: 1px solid ${(props) => props.theme.colors.main};
+  padding: 5px;
 
   .headerTitle {
     color: ${(props) => props.theme.colors.main};
@@ -39,5 +40,16 @@ export const HeaderContainer = styled.header`
     background-color: white;
     border-radius: 16px;
     padding: 20px;
+  }
+  .headerMenuIcon{
+    width: 26px;
+    height: 26px;
+    fill: ${(props) => props.theme.colors.main};
+  }
+  @media (min-width: 768px) {
+    padding: 10px;
+  }
+  @media (min-width: 1024px) {
+    padding: 10px;
   }
 `;
