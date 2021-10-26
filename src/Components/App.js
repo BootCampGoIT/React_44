@@ -1,33 +1,38 @@
-import React, { Component, useState, createContext } from "react";
+import React, { useState, createContext } from "react";
 import Header from "./header/Header";
 import Main from "./main/Main";
-import { data } from "../data/data";
+
 import GlobalStyles from "../styles/GlobalStyles";
 import { ThemeProvider } from "styled-components";
 import { themes } from "../themes";
+import { useLanguageHook } from "../hooks/languageHook";
+import languagesSet from "../languages";
 
-// console.dir(React);
-export const MessageContext = createContext();
-// console.log(MessageContext);
+export const LanguageContext = createContext();
+
 const App = () => {
   const [theme, setTheme] = useState("dark");
-  // =================
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen((prev) => !prev);
+  const [lang, setLang] = useLanguageHook("russian");
   // ===========
   const changeTheme = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };
-  const { Provider } = MessageContext;
+
   return (
     <>
-      <Provider value={{ isOpen, toggle }}>
+      <LanguageContext.Provider
+        value={{
+          lang,
+          setLang,
+          set: languagesSet[lang],
+          list: languagesSet.list,
+        }}>
         <ThemeProvider theme={themes[theme]}>
           <GlobalStyles />
-          <Header routes={data.mainRoutes} changeTheme={changeTheme} />
+          <Header changeTheme={changeTheme} />
           <Main />
         </ThemeProvider>
-      </Provider>
+      </LanguageContext.Provider>
     </>
   );
 };

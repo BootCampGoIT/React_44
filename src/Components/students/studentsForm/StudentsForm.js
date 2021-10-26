@@ -1,12 +1,6 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 
-const initialState = {
-  name: "",
-  course: "",
-  age: "",
-};
-
-const StudentsForm = ({ addStudent }) => {
+const StudentsForm = ({ addStudent, toggle, isStudentExist }) => {
   const [student, setStudent] = useState({
     name: "",
     course: "",
@@ -19,7 +13,12 @@ const StudentsForm = ({ addStudent }) => {
   };
   const onHandleSubmit = (e) => {
     e.preventDefault();
-    addStudent(student);
+    if (isStudentExist(student.name)) {
+      alert(`Student with name ${student.name} already exist!`);
+    } else {
+      addStudent(student);
+      toggle();
+    }
   };
   return (
     <form onSubmit={onHandleSubmit}>

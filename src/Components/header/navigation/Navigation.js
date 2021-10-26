@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
+import { LanguageContext } from "../../App";
 import { NavigationContainer } from "./NavigationStyled";
 
 const Navigation = ({ routes }) => {
+  const { set } = useContext(LanguageContext);
   return (
     <NavigationContainer>
       <ul className='navigationList'>
         {routes.map((route) => (
           <li key={route.path} className='navigationListItem'>
             <a href={route.path} className='navigationListLink'>
-              {route.name}
+              {set.navigation[route.name]}
             </a>
           </li>
         ))}

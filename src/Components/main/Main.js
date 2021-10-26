@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Students from "../students/Students";
 import Tutors from "../tutors/Tutors";
 import Courses from "../courses/Courses";
@@ -99,7 +99,7 @@ const Main = () => {
       {isLoading && <LoaderComponent />}
       {error && <h2>{error}</h2>}
       <Section title='Tutors'>
-        <Tutors tutors={tutors} addTutor={addTutor} />
+        <Tutors tutors={tutors} addTutor={addTutor}/>
       </Section>
       <Section title='Students'>
         <Students

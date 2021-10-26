@@ -3,6 +3,8 @@ import { HeaderContainer } from "./HeaderStyled";
 import Navigation from "./navigation/Navigation";
 import sprite from "../../icons/header/sprite.svg";
 import Modal from "../modal/Modal";
+import { mainRoutes } from "../../routes/mainRoutes";
+import LanguageSwitcher from "../languageSwitcher/LanguageSwitcher";
 
 class Header extends Component {
   state = {
@@ -27,7 +29,7 @@ class Header extends Component {
   };
 
   render() {
-    const { routes, changeTheme } = this.props;
+    const { changeTheme } = this.props;
     return (
       <HeaderContainer>
         <h2 className='headerTitle'>IT-education</h2>
@@ -40,11 +42,12 @@ class Header extends Component {
                   <button type='button' onClick={changeTheme}>
                     Change theme
                   </button>
+                <LanguageSwitcher />
                 </div>
               </Modal>
             )}
             <div className='headerBlock'>
-              <Navigation routes={routes} />
+              <Navigation routes={mainRoutes} />
               <button
                 type='button'
                 className='headerBlockButton'
@@ -56,7 +59,7 @@ class Header extends Component {
             </div>
           </>
         ) : (
-          <svg className="headerMenuIcon">
+          <svg className='headerMenuIcon'>
             <use href={sprite + "#icon-menu"} />
           </svg>
         )}
