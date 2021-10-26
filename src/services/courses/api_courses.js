@@ -2,7 +2,7 @@ import axios from "axios";
 
 const addNewItem = async (body, path) => {
   try {
-    const response = await axios.post(
+    const response = await axios.post(z
       process.env.REACT_APP_BASE_URL + `/${path}.json`,
       body
     );
